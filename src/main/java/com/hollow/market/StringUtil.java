@@ -3,7 +3,8 @@ package com.hollow.market;
 import com.google.gson.GsonBuilder;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
+import java.security.*;
+import java.util.Base64;
 
 public final class StringUtil {
 
@@ -31,5 +32,35 @@ public final class StringUtil {
 
     public static String getDifficultyString(int difficulty) {
         return new String(new char[difficulty]).replace('\0', '0');
+    }
+
+    public static byte[] applyECDSASig(PrivateKey privateKey, String input) {
+        Signature dsa;
+        try {
+            dsa = Signature.getInstance("ECDSA", "BC");
+            dsa.initSign(privateKey);
+            byte[] strByte = input.getBytes(StandardCharsets.UTF_8);
+            dsa.update(strByte);
+            return dsa.sign();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean verifySCDSASig(PublicKey publicKey, String data, byte[] signature) {
+        try {
+            Signature ecdsaVerify = Signature.getInstance("ECDSA", "BC");
+            ecdsaVerify.initVerify(publicKey);
+            ecdsaVerify.update(data.getBytes(StandardCharsets.UTF_8));
+            return ecdsaVerify.verify(signature)
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getStringFromKey(Key key) {
+        return Base64.getEncoder().encodeToString(key.getEncoded());
     }
 }
