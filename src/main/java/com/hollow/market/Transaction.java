@@ -2,6 +2,7 @@ package com.hollow.market;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.util.ArrayList;
 
 public class Transaction {
@@ -34,12 +35,12 @@ public class Transaction {
     }
 
     public void generateSignature(PrivateKey privateKey) {
-        String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + value;
+        String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(recipient) + value;
         signature = StringUtil.applyECDSASig(privateKey, data);
     }
 
     public boolean verifySignature() {
-        String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + value;
+        String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(recipient) + value;
         return StringUtil.verifyECDSASig(sender, data, signature);
     }
 }
