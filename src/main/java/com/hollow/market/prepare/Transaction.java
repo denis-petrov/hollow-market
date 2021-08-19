@@ -1,8 +1,7 @@
-package com.hollow.market;
+package com.hollow.market.prepare;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.Signature;
 import java.util.ArrayList;
 
 public class Transaction {

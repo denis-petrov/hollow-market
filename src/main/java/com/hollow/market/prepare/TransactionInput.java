@@ -1,4 +1,4 @@
-package com.hollow.market;
+package com.hollow.market.prepare;
 
 public class TransactionInput {
     public String transactionOutputId;

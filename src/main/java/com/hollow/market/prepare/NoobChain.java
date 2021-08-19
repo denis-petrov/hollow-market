@@ -1,6 +1,7 @@
-package com.hollow.market;
+package com.hollow.market.prepare;
 
 import com.google.gson.GsonBuilder;
+import com.hollow.market.prepare.Block;
 
 import java.util.ArrayList;
 
