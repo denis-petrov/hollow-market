@@ -33,12 +33,12 @@ class UserList extends React.Component {
         return (
             <table>
                 <tbody>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Date Birth</th>
-                    </tr>
-                    {users}
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date Birth</th>
+                </tr>
+                {users}
                 </tbody>
             </table>
         )
@@ -46,12 +46,14 @@ class UserList extends React.Component {
 }
 
 class User extends React.Component {
+
     render() {
+        let date = new Date(this.props.user.dateBirth);
         return (
             <tr>
                 <td>{this.props.user.firstName}</td>
                 <td>{this.props.user.lastName}</td>
-                <td>{this.props.user.dateBirth}</td>
+                <td>{date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()}</td>
             </tr>
         )
     }
