@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const rest = require('rest')
 const defaultRequest = require('rest/interceptor/defaultRequest')
