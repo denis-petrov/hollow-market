@@ -1,4 +1,4 @@
-import {React} from 'react'
+import * as React from 'react'
 import {UserList} from './UserList'
 
 const client = require('../client')
@@ -25,7 +25,7 @@ class App extends React.Component {
                 path: userCollection.entity._links.profile.href,
                 headers: {'Accept': 'application/schema+json'}
             }).then(schema => {
-                this.schema = schema.emtity
+                this.schema = schema.entity
                 return userCollection
             })
         }).done(userCollection => {
@@ -35,6 +35,27 @@ class App extends React.Component {
                 pageSize: pageSize,
                 links: userCollection.entity._links
             })
+        })
+    }
+
+    onCreate(newUser) {
+        follow(client, root, ['users']).then(userCollection => {
+            return client({
+                method: 'POST',
+                path: userCollection.entity._links.self.href,
+                entity: newUser,
+                headers: {'Content-Type': 'application/json'}
+            })
+        }).then(() => {
+            return follow(client, root, [
+                {rel: 'users', params: {'size': this.state.pageSize}}
+            ])
+        }).done(response => {
+            if (typeof response.entity._links.last !== "undefined") {
+                this.onNavigate(response.entity._links.last.href)
+            } else {
+                this.onNavigate(response.entity._links.self.href)
+            }
         })
     }
 

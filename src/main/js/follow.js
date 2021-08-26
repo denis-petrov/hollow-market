@@ -1,16 +1,16 @@
-module.extends = function follow(api, rootPath, relArray) {
+module.exports = function follow(api, rootPath, relArray) {
     const root = api({
         method: 'GET',
         path: rootPath
     })
 
-    return relArray.reduce((root, arrayItem) => {
+    return relArray.reduce(function (root, arrayItem) {
         const rel = typeof arrayItem === 'string' ? arrayItem : arrayItem.rel
         return traverseNext(root, rel, arrayItem)
     }, root)
 
     function traverseNext(root, rel, arrayItem) {
-        return root.then((response) => {
+        return root.then(function (response) {
             if (hasEmbeddedRel(response.entity, rel)) {
                 return response.entity._embedded[rel]
             }
@@ -26,7 +26,7 @@ module.extends = function follow(api, rootPath, relArray) {
                 method: 'GET',
                 path: response.entity._links[rel].href,
                 params: arrayItem.params
-            })
+            });
         })
     }
 

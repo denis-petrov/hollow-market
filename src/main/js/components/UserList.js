@@ -1,5 +1,5 @@
+import * as React from 'react'
 import {User} from './User'
-import React from 'react'
 
 export {
     UserList
