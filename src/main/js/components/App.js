@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {UserList} from './UserList'
+import {CreateDialog} from './CreateDialog'
 
 const client = require('../client')
 const follow = require('../follow')
@@ -13,7 +14,11 @@ class App extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {users: []}
+        this.state = {users: [], attributes: [], pageSize: 2, links: {}}
+        this.updatePageSize = this.updatePageSize.bind(this)
+        this.onCreate = this.onCreate.bind(this)
+        this.onDelete = this.onDelete.bind(this)
+        this.onNavigate = this.onNavigate.bind(this)
     }
 
     loadFromServer(pageSize) {
@@ -59,13 +64,44 @@ class App extends React.Component {
         })
     }
 
+    onDelete(user) {
+        client({method: 'DELETE', path: user._links.self.href}).done(response => {
+            this.loadFromServer(this.state.pageSize)
+        })
+    }
+
+    onNavigate(navUri) {
+        client({method: 'GET', path: navUri}).done(userCollection => {
+            this.setState({
+                employees: userCollection.entity._embedded.employees,
+                attributes: this.state.attributes,
+                pageSize: this.state.pageSize,
+                links: userCollection.entity._links
+            });
+        });
+    }
+
+    updatePageSize(pageSize) {
+        if (pageSize !== this.state.pageSize) {
+            this.loadFromServer(pageSize)
+        }
+    }
+
     componentDidMount() {
         this.loadFromServer(this.state.pageSize)
     }
 
     render() {
         return (
-            <UserList users={this.state.users}/>
+            <div>
+                <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
+                <UserList users={this.state.users}
+                          links={this.state.links}
+                          pageSize={this.state.pageSize}
+                          onNabigate={this.onNavigate}
+                          onDelete={this.onDelete}
+                          updatePageSize={this.updatePageSize}/>
+            </div>
         )
     }
 }

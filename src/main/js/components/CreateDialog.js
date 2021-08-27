@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+const ReactDOM = require('react-dom')
+
 export {
     CreateDialog
 }
@@ -12,22 +14,20 @@ class CreateDialog extends React.Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault()
-        const newUser = {}
-        console.log(this.props)
-
+        e.preventDefault();
+        const newUser = {};
         this.props.attributes.forEach(attribute => {
             newUser[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim()
         })
         this.props.onCreate(newUser)
 
-        // clear out the dialog inputs
+        // clear out the dialog's inputs
         this.props.attributes.forEach(attribute => {
             ReactDOM.findDOMNode(this.refs[attribute]).value = ''
         })
 
-        // navigate away from dialog to hide it
-        window.location = '#'
+        // Navigate away from the dialog to hide it.
+        window.location = "#"
     }
 
     render() {
