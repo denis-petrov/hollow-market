@@ -73,12 +73,12 @@ class App extends React.Component {
     onNavigate(navUri) {
         client({method: 'GET', path: navUri}).done(userCollection => {
             this.setState({
-                employees: userCollection.entity._embedded.employees,
+                users: userCollection.entity._embedded.users,
                 attributes: this.state.attributes,
                 pageSize: this.state.pageSize,
                 links: userCollection.entity._links
-            });
-        });
+            })
+        })
     }
 
     updatePageSize(pageSize) {
@@ -98,7 +98,7 @@ class App extends React.Component {
                 <UserList users={this.state.users}
                           links={this.state.links}
                           pageSize={this.state.pageSize}
-                          onNabigate={this.onNavigate}
+                          onNavigate={this.onNavigate}
                           onDelete={this.onDelete}
                           updatePageSize={this.updatePageSize}/>
             </div>

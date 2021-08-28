@@ -1,4 +1,5 @@
-import * as React from 'react'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import {User} from './User'
 
 export {
@@ -48,7 +49,7 @@ class UserList extends React.Component {
 
     render() {
         const users = this.props.users.map(user =>
-            <User key={user._links.self.href} user={user}/>
+            <User key={user._links.self.href} user={user} onDelete={this.props.onDelete}/>
         )
 
         const navLinks = []

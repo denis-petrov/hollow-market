@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-const ReactDOM = require('react-dom')
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 export {
     CreateDialog
