@@ -1,17 +1,12 @@
 package com.hollow.market.domain;
 
 import com.sun.istack.NotNull;
+import net.minidev.json.annotate.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
-/**
- * User entity class
-*/
 @Entity
 public class User {
     @Id
@@ -27,13 +22,9 @@ public class User {
     @NotNull
     private Date dateBirth;
 
-    public void setDateBirth(Date dateBirth) {
-        this.dateBirth = dateBirth;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    @Version
+    @JsonIgnore
+    private Long version;
 
     public User() {
     }
@@ -44,14 +35,6 @@ public class User {
         this.dateBirth = dateBirth;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,12 +43,16 @@ public class User {
         return Objects.equals(id, user.id) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
-                Objects.equals(dateBirth, user.dateBirth);
+                Objects.equals(dateBirth, user.dateBirth) &&
+                Objects.equals(version, user.version);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, dateBirth);
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -76,12 +63,33 @@ public class User {
         this.firstName = firstName;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getLastName() {
         return lastName;
     }
 
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
     public Date getDateBirth() {
         return dateBirth;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, dateBirth, version);
     }
 
     @Override
@@ -90,7 +98,8 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", dateBirth=" + dateBirth +
+                ", dateBirth=" + dateBirth + '\'' +
+                ", version='" + version +
                 '}';
     }
 }

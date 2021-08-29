@@ -9,7 +9,7 @@ export {
 class UserList extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         this.handleNavFirst = this.handleNavFirst.bind(this)
         this.handleNavPrev = this.handleNavPrev.bind(this)
         this.handleNavNext = this.handleNavNext.bind(this)
@@ -49,7 +49,11 @@ class UserList extends React.Component {
 
     render() {
         const users = this.props.users.map(user =>
-            <User key={user._links.self.href} user={user} onDelete={this.props.onDelete}/>
+            <User key={user.entity._links.self.href}
+                  user={user}
+                  attributes={this.props.attributes}
+                  onUpdate={this.props.onUpdate}
+                  onDelete={this.props.onDelete}/>
         )
 
         const navLinks = []
@@ -75,6 +79,7 @@ class UserList extends React.Component {
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Date Birth</th>
+                            <th></th>
                             <th></th>
                         </tr>
                         {users}

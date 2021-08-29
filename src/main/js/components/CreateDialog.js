@@ -19,13 +19,9 @@ class CreateDialog extends React.Component {
             newUser[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim()
         })
         this.props.onCreate(newUser)
-
-        // clear out the dialog's inputs
         this.props.attributes.forEach(attribute => {
-            ReactDOM.findDOMNode(this.refs[attribute]).value = ''
+            ReactDOM.findDOMNode(this.refs[attribute]).value = '' // clear out the dialog's inputs
         })
-
-        // Navigate away from the dialog to hide it.
         window.location = "#"
     }
 
