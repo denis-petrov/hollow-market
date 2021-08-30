@@ -17,7 +17,6 @@ class User extends React.Component {
     }
 
     render() {
-        console.log(this.props.user.entity)
         let date = new Date(this.props.user.entity.dateBirth);
         return (
             <tr>

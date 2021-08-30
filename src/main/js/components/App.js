@@ -78,8 +78,6 @@ class App extends React.Component {
     }
 
     onUpdate(user, updatedUser) {
-        console.log("user:" + user)
-        console.log("updatedUser:" + updatedUser)
         client({
             method: 'PUT',
             path: user.entity._links.self.href,
@@ -88,7 +86,7 @@ class App extends React.Component {
                 'Content-Type': 'application/json',
                 'If-Match': user.headers.Etag
             }
-        }).done(response => {
+        }).done(() => {
             this.loadFromServer(this.state.pageSize)
         }, response => {
             if (response.status.code === 412) {
@@ -109,12 +107,12 @@ class App extends React.Component {
         }).then(userCollection => {
             this.links = userCollection.entity._links
 
-            return userCollection.entity._embedded.users.map(user => {
+            return userCollection.entity._embedded.users.map(user =>
                 client({
                     method: 'GET',
                     path: user._links.self.href
                 })
-            })
+            )
         }).then(userPromises => {
             return when.all(userPromises)
         }).done(users => {
