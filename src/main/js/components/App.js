@@ -64,7 +64,7 @@ class App extends React.Component {
                 entity: newUser,
                 headers: {'Content-Type': 'application/json'}
             })
-        }).then(response => {
+        }).then(() => {
             return follow(client, root, [
                 {rel: 'users', params: {'size': self.state.pageSize}}
             ])

@@ -23,13 +23,14 @@ class UpdateDialog extends React.Component {
     }
 
     render() {
-        const inputs = this.props.attributes.map(attribute =>
-            <p key={this.props.user.entity[attribute]}>
+        const inputs = []
+        for (const attribute of this.props.attributes) {
+            inputs.push(<p key={attribute + ":" + this.props.user.entity[attribute]}>
                 <input type="text" placeholder={attribute}
                        defaultValue={this.props.user.entity[attribute]}
                        ref={attribute} className="field"/>
-            </p>
-        )
+            </p>)
+        }
 
         const dialogId = "updateUser-" + this.props.user.entity._links.self.href
 
