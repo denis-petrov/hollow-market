@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class User {
+public class Employee {
     @Id
     @GeneratedValue
     private Long id;
@@ -20,31 +20,31 @@ public class User {
     private String lastName;
 
     @NotNull
-    private Date dateBirth;
+    private String description;
 
     @Version
     @JsonIgnore
     private Long version;
 
-    public User() {
+    public Employee() {
     }
 
-    public User(String firstName, String lastName, Date dateBirth) {
+    public Employee(String firstName, String lastName, String description) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateBirth = dateBirth;
+        this.description = description;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(dateBirth, user.dateBirth) &&
-                Objects.equals(version, user.version);
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id) &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(lastName, employee.lastName) &&
+                Objects.equals(description, employee.description) &&
+                Objects.equals(version, employee.version);
     }
 
     public Long getId() {
@@ -71,12 +71,12 @@ public class User {
         return lastName;
     }
 
-    public void setDateBirth(Date dateBirth) {
-        this.dateBirth = dateBirth;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Date getDateBirth() {
-        return dateBirth;
+    public String getDescription() {
+        return description;
     }
 
     public Long getVersion() {
@@ -89,16 +89,16 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, dateBirth, version);
+        return Objects.hash(id, firstName, lastName, description, version);
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Employee{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", dateBirth=" + dateBirth + '\'' +
+                ", description=" + description + '\'' +
                 ", version='" + version +
                 '}';
     }

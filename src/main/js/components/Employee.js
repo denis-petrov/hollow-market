@@ -2,10 +2,10 @@ import React from 'react'
 import {UpdateDialog} from './UpdateDialog'
 
 export {
-    User
+    Employee
 }
 
-class User extends React.Component {
+class Employee extends React.Component {
 
     constructor(props) {
         super(props)
@@ -13,18 +13,17 @@ class User extends React.Component {
     }
 
     handleDelete() {
-        this.props.onDelete(this.props.user)
+        this.props.onDelete(this.props.employee)
     }
 
     render() {
-        let date = new Date(this.props.user.entity.dateBirth);
         return (
             <tr>
-                <td>{this.props.user.entity.firstName}</td>
-                <td>{this.props.user.entity.lastName}</td>
-                <td>{date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()}</td>
+                <td>{this.props.employee.entity.firstName}</td>
+                <td>{this.props.employee.entity.lastName}</td>
+                <td>{this.props.employee.entity.description}</td>
                 <td>
-                    <UpdateDialog user={this.props.user}
+                    <UpdateDialog employee={this.props.employee}
                                   attributes={this.props.attributes}
                                   onUpdate={this.props.onUpdate} />
                 </td>

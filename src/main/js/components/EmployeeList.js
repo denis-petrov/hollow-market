@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {User} from './User'
+import {Employee} from './Employee'
 
 export {
-    UserList
+    EmployeeList
 }
 
-class UserList extends React.Component {
+class EmployeeList extends React.Component {
 
     constructor(props) {
         super(props)
@@ -48,12 +48,12 @@ class UserList extends React.Component {
     }
 
     render() {
-        const users = this.props.users.map(user =>
-            <User key={user.entity._links.self.href}
-                  user={user}
-                  attributes={this.props.attributes}
-                  onUpdate={this.props.onUpdate}
-                  onDelete={this.props.onDelete}/>
+        const employees = this.props.employees.map(employee =>
+            <Employee key={employee.entity._links.self.href}
+                      employee={employee}
+                      attributes={this.props.attributes}
+                      onUpdate={this.props.onUpdate}
+                      onDelete={this.props.onDelete}/>
         )
 
         const navLinks = []
@@ -78,11 +78,11 @@ class UserList extends React.Component {
                         <tr>
                             <th>First Name</th>
                             <th>Last Name</th>
-                            <th>Date Birth</th>
+                            <th>Description</th>
                             <th></th>
                             <th></th>
                         </tr>
-                        {users}
+                        {employees}
                     </tbody>
                 </table>
                 <div>

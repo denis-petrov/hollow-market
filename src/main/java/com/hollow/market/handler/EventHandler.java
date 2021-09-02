@@ -1,6 +1,6 @@
 package com.hollow.market.handler;
 
-import com.hollow.market.domain.User;
+import com.hollow.market.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import static com.hollow.market.config.WebSocketConfiguration.MESSAGE_PREFIX;
 
 @Component
-@RepositoryEventHandler(User.class)
+@RepositoryEventHandler(Employee.class)
 public class EventHandler {
 
     private final SimpMessagingTemplate websocket;
@@ -26,21 +26,21 @@ public class EventHandler {
     }
 
     @HandleAfterCreate
-    public void newUser(User user) {
-        this.websocket.convertAndSend(MESSAGE_PREFIX + "/newUser", getPath(user));
+    public void newEmployee(Employee employee) {
+        this.websocket.convertAndSend(MESSAGE_PREFIX + "/newEmployee", getPath(employee));
     }
 
     @HandleAfterDelete
-    public void deleteUser(User user) {
-        this.websocket.convertAndSend(MESSAGE_PREFIX + "/deleteUser", getPath(user));
+    public void deleteEmployee(Employee employee) {
+        this.websocket.convertAndSend(MESSAGE_PREFIX + "/deleteEmployee", getPath(employee));
     }
 
     @HandleAfterSave
-    public void updateUser(User user) {
-        this.websocket.convertAndSend(MESSAGE_PREFIX + "/updateUser", getPath(user));
+    public void updateEmployee(Employee employee) {
+        this.websocket.convertAndSend(MESSAGE_PREFIX + "/updateEmployee", getPath(employee));
     }
 
-    private String getPath(User user) {
-        return this.entityLinks.linkForItemResource(user.getClass(), user.getId()).toUri().getPath();
+    private String getPath(Employee employee) {
+        return this.entityLinks.linkForItemResource(employee.getClass(), employee.getId()).toUri().getPath();
     }
 }
