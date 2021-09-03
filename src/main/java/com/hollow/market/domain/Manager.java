@@ -30,8 +30,7 @@ public class Manager {
     public Manager() {
     }
 
-    public Manager(Long id, String name, String password, List<Role> roles) {
-        this.id = id;
+    public Manager(String name, String password, List<Role> roles) {
         this.name = name;
         this.password = password;
         this.roles = roles;
@@ -79,11 +78,11 @@ public class Manager {
         return password;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public String[] getRoles() {
+        return (String[]) roles.toArray();
     }
 
-    public void setRoles(ArrayList<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

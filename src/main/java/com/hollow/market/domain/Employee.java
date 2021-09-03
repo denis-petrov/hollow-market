@@ -26,13 +26,16 @@ public class Employee {
     @JsonIgnore
     private Long version;
 
+    private @ManyToOne Manager manager;
+
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String description) {
+    public Employee(String firstName, String lastName, String description, Manager manager) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
+        this.manager = manager;
     }
 
     @Override
@@ -44,7 +47,8 @@ public class Employee {
                 Objects.equals(firstName, employee.firstName) &&
                 Objects.equals(lastName, employee.lastName) &&
                 Objects.equals(description, employee.description) &&
-                Objects.equals(version, employee.version);
+                Objects.equals(version, employee.version) &&
+                Objects.equals(manager, employee.manager);
     }
 
     public Long getId() {
@@ -87,9 +91,17 @@ public class Employee {
         this.version = version;
     }
 
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, description, version);
+        return Objects.hash(id, firstName, lastName, description, version, manager);
     }
 
     @Override
@@ -100,6 +112,7 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", description=" + description + '\'' +
                 ", version='" + version +
+                ", manager=" + manager +
                 '}';
     }
 }
