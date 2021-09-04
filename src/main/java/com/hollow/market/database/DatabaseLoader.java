@@ -35,7 +35,7 @@ public class DatabaseLoader implements CommandLineRunner {
         List<Role> roles = new ArrayList<>(){{
             add(Role.MANAGER);
         }};
-        Manager greg = this.managers.save(new Manager("greg", "turnquist", roles));
+        Manager greg = this.managers.save(new Manager("admin", "admin", roles));
         Manager oliver = this.managers.save(new Manager("oliver", "gierke", roles));
 
         SecurityContextHolder.getContext().setAuthentication(

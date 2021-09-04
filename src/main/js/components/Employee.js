@@ -22,10 +22,12 @@ class Employee extends React.Component {
                 <td>{this.props.employee.entity.firstName}</td>
                 <td>{this.props.employee.entity.lastName}</td>
                 <td>{this.props.employee.entity.description}</td>
+                <td>{this.props.employee.entity.manager.name}</td>
                 <td>
                     <UpdateDialog employee={this.props.employee}
                                   attributes={this.props.attributes}
-                                  onUpdate={this.props.onUpdate} />
+                                  onUpdate={this.props.onUpdate}
+                                  loggedInManager={this.props.loggedInManager} />
                 </td>
                 <td>
                     <button onClick={this.handleDelete}>Delete</button>

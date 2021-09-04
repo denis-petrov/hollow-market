@@ -6,8 +6,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 public class Manager {
@@ -23,7 +28,7 @@ public class Manager {
     @JsonIgnore
     private String password;
 
-    @ElementCollection(targetClass = Role.class)
+    @ElementCollection(targetClass = Role.class, fetch = EAGER)
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
 
@@ -79,7 +84,11 @@ public class Manager {
     }
 
     public String[] getRoles() {
-        return (String[]) roles.toArray();
+        roles.get(0)
+        List<String> enumNames = Stream.of(Role.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        return roles.toArray(new String[0]);
     }
 
     public void setRoles(List<Role> roles) {

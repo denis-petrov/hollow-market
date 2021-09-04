@@ -35,6 +35,11 @@ class App extends React.Component {
                 path: employeeCollection.entity._links.profile.href,
                 headers: {'Accept': 'application/schema+json'}
             }).then(schema => {
+                /**
+                 * Filter unneeded JSON Schema properties, like uri references and
+                 * subtypes ($ref).
+                 */
+                console.log(schema)
                 this.schema = schema.entity
                 this.links = employeeCollection.entity._links
                 return employeeCollection
