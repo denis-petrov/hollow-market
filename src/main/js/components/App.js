@@ -16,7 +16,8 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {employees: [], attributes: [], page: 1, pageSize: 2, links: {}};
+        this.state = {employees: [], attributes: [], page: 1, pageSize: 2, links: {}
+            , loggedInManager: this.props.loggedInManager};
         this.updatePageSize = this.updatePageSize.bind(this);
         this.onCreate = this.onCreate.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
@@ -39,10 +40,19 @@ class App extends React.Component {
                  * Filter unneeded JSON Schema properties, like uri references and
                  * subtypes ($ref).
                  */
-                console.log(schema)
-                this.schema = schema.entity
-                this.links = employeeCollection.entity._links
-                return employeeCollection
+                Object.keys(schema.entity.properties).forEach(function (property) {
+                    if (schema.entity.properties[property].hasOwnProperty('format') &&
+                        schema.entity.properties[property].format === 'uri') {
+                        delete schema.entity.properties[property];
+                    }
+                    else if (schema.entity.properties[property].hasOwnProperty('$ref')) {
+                        delete schema.entity.properties[property];
+                    }
+                });
+
+                this.schema = schema.entity;
+                this.links = employeeCollection.entity._links;
+                return employeeCollection;
             })
         }).then(employeeCollection => {
             return employeeCollection.entity._embedded.employees.map(employee =>
@@ -75,19 +85,42 @@ class App extends React.Component {
     }
 
     onUpdate(employee, updatedEmployee) {
-        client({
-            method: 'PUT',
-            path: employee.entity._links.self.href,
-            entity: updatedEmployee,
-            headers: {
-                'Content-Type': 'application/json',
-                'If-Match': employee.headers.Etag
-            }
-        })
+        if (employee.entity.manager.name === this.state.loggedInManager) {
+            updatedEmployee["manager"] = employee.entity.manager;
+            client({
+                method: 'PUT',
+                path: employee.entity._links.self.href,
+                entity: updatedEmployee,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'If-Match': employee.headers.Etag
+                }
+            }).done(() => {
+                /* Let the websocket handler update the state */
+            }, response => {
+                if (response.status.code === 403) {
+                    alert('ACCESS DENIED: You are not authorized to update ' +
+                        employee.entity._links.self.href);
+                }
+                if (response.status.code === 412) {
+                    alert('DENIED: Unable to update ' + employee.entity._links.self.href +
+                        '. Your copy is stale.');
+                }
+            });
+        } else {
+            alert("You are not authorized to update");
+        }
     }
 
     onDelete(employee) {
-        client({method: 'DELETE', path: employee.entity._links.self.href})
+        client({method: 'DELETE', path: employee.entity._links.self.href}
+        ).done(() => {},
+            response => {
+                if (response.status.code === 403) {
+                    alert('ACCESS DENIED: You are not authorized to delete ' +
+                        employee.entity._links.self.href);
+                }
+            });
     }
 
     onNavigate(navUri) {
@@ -176,14 +209,16 @@ class App extends React.Component {
         return (
             <div>
                 <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
-                <EmployeeList employees={this.state.employees}
+                <EmployeeList page={this.state.page}
+                          employees={this.state.employees}
                           links={this.state.links}
                           pageSize={this.state.pageSize}
                           attributes={this.state.attributes}
                           onNavigate={this.onNavigate}
                           onUpdate={this.onUpdate}
                           onDelete={this.onDelete}
-                          updatePageSize={this.updatePageSize}/>
+                          updatePageSize={this.updatePageSize}
+                          loggedInManager={this.state.loggedInManager}/>
             </div>
         )
     }

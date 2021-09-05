@@ -5,12 +5,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static javax.persistence.FetchType.EAGER;
 
@@ -28,16 +25,14 @@ public class Manager {
     @JsonIgnore
     private String password;
 
-    @ElementCollection(targetClass = Role.class, fetch = EAGER)
-    @Enumerated(EnumType.STRING)
-    private List<Role> roles;
+    private String[] roles;
 
     public Manager() {
     }
 
-    public Manager(String name, String password, List<Role> roles) {
+    public Manager(String name, String password, String... roles) {
         this.name = name;
-        this.password = password;
+        this.setPassword(password);
         this.roles = roles;
     }
 
@@ -53,13 +48,13 @@ public class Manager {
         return Objects.equals(id, manager.id) &&
                 Objects.equals(name, manager.name) &&
                 Objects.equals(password, manager.password) &&
-                roles.equals(manager.roles);
+                Arrays.equals(roles, manager.roles);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(id, name, password);
-        result = 31 * result + roles.hashCode();
+        result = 31 * result + Arrays.hashCode(roles);
         return result;
     }
 
@@ -84,14 +79,10 @@ public class Manager {
     }
 
     public String[] getRoles() {
-        roles.get(0)
-        List<String> enumNames = Stream.of(Role.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        return roles.toArray(new String[0]);
+        return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(String[] roles) {
         this.roles = roles;
     }
 
@@ -100,7 +91,7 @@ public class Manager {
         return "Manager{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", roles=" + roles +
+                ", roles=" + Arrays.toString(roles) +
                 '}';
     }
 }
