@@ -1,7 +1,7 @@
-package com.hollow.market.config;
+package com.hollow.springreact.config;
 
-import com.hollow.market.domain.Manager;
-import com.hollow.market.service.SpringDataJpaUserDetailsService;
+import com.hollow.springreact.domain.Manager;
+import com.hollow.springreact.service.SpringDataJpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

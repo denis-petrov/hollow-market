@@ -1,4 +1,4 @@
-package com.hollow.market;
+package com.hollow.springreact;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

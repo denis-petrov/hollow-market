@@ -1,10 +1,9 @@
-package com.hollow.market.domain;
+package com.hollow.springreact.domain;
 
 import com.sun.istack.NotNull;
 import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity

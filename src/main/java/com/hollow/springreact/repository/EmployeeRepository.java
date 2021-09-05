@@ -1,6 +1,6 @@
-package com.hollow.market.repository;
+package com.hollow.springreact.repository;
 
-import com.hollow.market.domain.Employee;
+import com.hollow.springreact.domain.Employee;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,6 +1,6 @@
-package com.hollow.market.repository;
+package com.hollow.springreact.repository;
 
-import com.hollow.market.domain.Manager;
+import com.hollow.springreact.domain.Manager;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

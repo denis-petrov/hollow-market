@@ -1,4 +1,4 @@
-package com.hollow.market.domain;
+package com.hollow.springreact.domain;
 
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -6,10 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Entity
 public class Manager {

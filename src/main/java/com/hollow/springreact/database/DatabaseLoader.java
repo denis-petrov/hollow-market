@@ -1,9 +1,9 @@
-package com.hollow.market.database;
+package com.hollow.springreact.database;
 
-import com.hollow.market.domain.Employee;
-import com.hollow.market.domain.Manager;
-import com.hollow.market.repository.EmployeeRepository;
-import com.hollow.market.repository.ManagerRepository;
+import com.hollow.springreact.domain.Employee;
+import com.hollow.springreact.domain.Manager;
+import com.hollow.springreact.repository.EmployeeRepository;
+import com.hollow.springreact.repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

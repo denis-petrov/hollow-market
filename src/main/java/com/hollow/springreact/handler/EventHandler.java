@@ -1,6 +1,6 @@
-package com.hollow.market.handler;
+package com.hollow.springreact.handler;
 
-import com.hollow.market.domain.Employee;
+import com.hollow.springreact.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
@@ -10,7 +10,7 @@ import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import static com.hollow.market.config.WebSocketConfiguration.MESSAGE_PREFIX;
+import static com.hollow.springreact.config.WebSocketConfiguration.MESSAGE_PREFIX;
 
 @Component
 @RepositoryEventHandler(Employee.class)

@@ -1,8 +1,8 @@
-# Hollow Cryptocurrency Market
+# Spring and React JS
 
 ## Idea
 
-Project for storing your own currency and transactions with your account.
+Pet project for test Spring and React JS
 Developed on [Spring](https://spring.io/) and [React](https://reactjs.org/).
 
 ## Use

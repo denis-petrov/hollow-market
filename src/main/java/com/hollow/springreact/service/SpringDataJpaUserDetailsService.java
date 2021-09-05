@@ -1,7 +1,7 @@
-package com.hollow.market.service;
+package com.hollow.springreact.service;
 
-import com.hollow.market.domain.Manager;
-import com.hollow.market.repository.ManagerRepository;
+import com.hollow.springreact.domain.Manager;
+import com.hollow.springreact.repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;

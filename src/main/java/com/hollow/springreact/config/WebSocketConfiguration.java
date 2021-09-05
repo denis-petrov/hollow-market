@@ -1,4 +1,4 @@
-package com.hollow.market.config;
+package com.hollow.springreact.config;
 
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.stereotype.Component;

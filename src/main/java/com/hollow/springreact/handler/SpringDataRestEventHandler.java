@@ -1,8 +1,8 @@
-package com.hollow.market.handler;
+package com.hollow.springreact.handler;
 
-import com.hollow.market.domain.Employee;
-import com.hollow.market.domain.Manager;
-import com.hollow.market.repository.ManagerRepository;
+import com.hollow.springreact.domain.Employee;
+import com.hollow.springreact.domain.Manager;
+import com.hollow.springreact.repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
